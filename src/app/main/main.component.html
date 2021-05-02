@@ -1,0 +1,56 @@
+<!-- Navigation Template -->
+<ng-template #navigationTemplate>
+  <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
+    <li *ngFor="let navigationItem of navigation" [ngClass]="navigationItem.content.length ? 'uk-parent' : ''">
+      <a [routerLink]="navigationItem.path">{{ navigationItem.name }}</a>
+      <ul *ngIf="navigationItem.content.length > 0" class="uk-nav-sub">
+        <ng-container *ngTemplateOutlet="recursiveSubNavTemplate; context:{ $implicit: navigationItem.content }"></ng-container>
+        <ng-template #recursiveSubNavTemplate let-list="$implicit">
+          <li *ngFor="let item of list">
+            <a [routerLink]="item.path">{{ item.name }}</a>
+            <ul *ngIf="item.content.length > 0">
+              <ng-container *ngTemplateOutlet="recursiveSubNavTemplate; context:{ $implicit: item.content }"></ng-container>
+            </ul>
+          </li>
+        </ng-template>
+      </ul>
+    </li>
+  </ul>
+</ng-template>
+
+<!-- sticky navbar on mobile -->
+<div id="navbar" uk-sticky="show-on-up: true; animation: uk-animation-slide-top" class="uk-section uk-section-muted uk-section-xsmall">
+  <nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left uk-margin-left">
+      <h1 class="uk-margin-remove-bottom">DocuGit</h1>
+    </div>
+    <div class="uk-navbar-right uk-margin-right">
+      <a uk-icon="icon: menu; ratio: 2" uk-toggle href="#offcanvas-navigation"></a>
+    </div>
+  </nav>
+</div>
+
+<!-- offcanvas navigation (for mobile) -->
+<div id="offcanvas-navigation" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar">
+    <button class="uk-offcanvas-close" type="button" uk-close></button>
+    <div class="uk-section">
+      <ng-container *ngTemplateOutlet="navigationTemplate"></ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- navigation sidebar on desktop -->
+<aside id="sidebar-left" class="uk-light">
+  <div style="margin: 2rem;">
+    <div class="uk-margin-medium-bottom">
+      <h1>DocuGit</h1>
+    </div>
+    <ng-container *ngTemplateOutlet="navigationTemplate"></ng-container>
+  </div>
+</aside>
+
+<!-- main -->
+<div id="main">
+  <div class="uk-container uk-margin-top uk-margin-medium-bottom" [innerHtml]="document"></div>
+</div>

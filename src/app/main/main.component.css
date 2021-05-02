@@ -1,0 +1,31 @@
+#sidebar-left {
+  display: none;
+}
+@media screen and (min-width: 60rem) {
+  #sidebar-left {
+    display: inherit;
+    position: fixed;
+    left: 0;
+    top:0;
+    bottom:0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #222;
+    width: calc(25vw);
+    z-index:1;
+  }
+  #main {
+		padding-left: calc(25vw);
+	}
+  #navbar {
+    display: none;
+  }
+}
+@media screen and (min-width: 75rem) {
+  #sidebar-left {
+    width: 18.75rem;
+  }
+  #main {
+    padding-left: 18.75rem;
+  }
+}

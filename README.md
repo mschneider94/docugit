@@ -1,6 +1,6 @@
 # docugit
 
-Serve documentation/wiki/KB from a Git-repo with markdown-files
+Serve documentation/wiki/KB from a Git-repo with markdown-files, [see demo](https://mschneider94.github.io/docugit/).
 
 ## Installing / Getting started
 
